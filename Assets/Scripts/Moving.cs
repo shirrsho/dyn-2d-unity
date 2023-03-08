@@ -16,22 +16,24 @@ public class Moving : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        Move();
-    }
+    // void Update()
+    // {
+    //     Move();
+    // }
 
-    void Move(){
+    public void Move(int steps){
+        Debug.Log("transform.position: "+waypoints[index+steps].transform.position);
         transform.position = Vector2.MoveTowards(this.transform.position,
-        waypoints[index].transform.position,
+        waypoints[index+steps].transform.position,
         speed*Time.deltaTime);
-        Debug.Log("way transform.position: "+waypoints[index].transform.position);
-        if(transform.position==waypoints[index].transform.position){
-            index += 1;
-        Debug.Log("index: "+index);
-        }
-        if(index==waypoints.Length){
-            index = 0;
-        }
+        index=index+steps;
+        // Debug.Log("way transform.position: "+waypoints[index].transform.position);
+        // if(transform.position==waypoints[index].transform.position){
+        //     index += 1;
+        // // Debug.Log("index: "+index);
+        // }
+        // if(index==waypoints.Length){
+        //     index = 0;
+        // }
     }
 }
