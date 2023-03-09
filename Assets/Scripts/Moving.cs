@@ -18,15 +18,18 @@ public class Moving : MonoBehaviour
     // Update is called once per frame
     // void Update()
     // {
-    //     Move();
+    //     Debug.Log("updated");
     // }
 
     public void Move(int steps){
-        Debug.Log("transform.position: "+waypoints[index+steps].transform.position);
+        Debug.Log("initial positon: "+transform.position);
+        Debug.Log("initial waypoint positon: "+waypoints[index].transform.position);
         transform.position = Vector2.MoveTowards(this.transform.position,
         waypoints[index+steps].transform.position,
         speed*Time.deltaTime);
         index=index+steps;
+        Debug.Log("position after moving: "+transform.position);
+        Debug.Log("final waypoint positon: "+waypoints[index].transform.position);
         // Debug.Log("way transform.position: "+waypoints[index].transform.position);
         // if(transform.position==waypoints[index].transform.position){
         //     index += 1;
