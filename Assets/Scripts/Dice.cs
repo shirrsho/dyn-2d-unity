@@ -12,6 +12,7 @@ public class Dice : MonoBehaviour {
     Moving moving;
     [SerializeField]
     GameObject piece;
+    int player = 1;
 
     private void Awake(){
         moving = piece.GetComponent<Moving>();
@@ -63,6 +64,12 @@ public class Dice : MonoBehaviour {
 
         // Show final dice value in Console
         Debug.Log(finalSide);
-        moving.Move(finalSide);
+        if(player==1){
+            moving.Move(finalSide);
+            player=-1;
+        } else{
+            moving.Move(-1*finalSide);
+            player=1;
+        }
     }
 }
