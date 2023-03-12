@@ -3,6 +3,36 @@ using UnityEngine;
 
 public class Dice : MonoBehaviour {
 
+
+    [SerializeField] Transform[] waypoints;
+
+    
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
+            if (hit.collider != null && hit.collider.CompareTag("Waypoint"))
+            {
+                int waypointIndex = -1;
+                for (int i = 0; i < waypoints.Length; i++)
+                {
+                    if (waypoints[i] == hit.collider.transform)
+                    {
+                        waypointIndex = i+1;
+                        break;
+                    }
+                }
+
+                Vector3 waypointPosition = hit.collider.transform.position;
+                // Do whatever you want with the waypointPosition and the waypointIndex here
+                Debug.Log("Waypoint Position: " + waypointPosition + " Waypoint Index: " + waypointIndex);
+            }
+        }
+    }
+
     // Array of dice sides sprites to load from Resources folder
     
     private Sprite[] diceSides;
@@ -12,6 +42,7 @@ public class Dice : MonoBehaviour {
     Moving moving;
     [SerializeField]
     GameObject piece;
+    int player = 1;
 
     private void Awake(){
         moving = piece.GetComponent<Moving>();
@@ -63,6 +94,12 @@ public class Dice : MonoBehaviour {
 
         // Show final dice value in Console
         Debug.Log(finalSide);
-        moving.Move(finalSide);
+        if(player==1){
+            moving.Move(finalSide);
+            player=-1;
+        } else{
+            moving.Move(-1*finalSide);
+            player=1;
+        }
     }
 }
