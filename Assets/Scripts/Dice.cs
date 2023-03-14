@@ -40,25 +40,29 @@ public class Dice : MonoBehaviour {
                 // Do whatever you want with the waypointPosition and the waypointIndex here
                 Debug.Log("Waypoint Position: " + waypointPosition + " Waypoint Index: " + waypointIndex);
                 if(player==1){
-                    show.text = negative;
+                 
                     if(movePermission) 
                     {
                         moving.Move(finalSide,waypointIndex-1);
                         movePermission = false;
+                        show.text = negative;
+                        player=-1;
                     }
                    
                     
-                    player=-1;
+                    
                     turn = true;
                   
                 } else{
-                    show.text = positive;
+                   
                     if(movePermission) {
                         moving.Move(-1*finalSide,waypointIndex-1);
                         movePermission = false;
+                        show.text = positive;
+                        player=1;
                     } 
                     
-                    player=1;
+               
                     turn = true;
                    
                 }
