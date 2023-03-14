@@ -5,11 +5,12 @@ public class Dice : MonoBehaviour {
 
 
     [SerializeField] Transform[] waypoints;
-
+    int finalSide = 0;
+    int player = 1;
     
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)&&finalSide!=0)
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
@@ -29,6 +30,13 @@ public class Dice : MonoBehaviour {
                 Vector3 waypointPosition = hit.collider.transform.position;
                 // Do whatever you want with the waypointPosition and the waypointIndex here
                 Debug.Log("Waypoint Position: " + waypointPosition + " Waypoint Index: " + waypointIndex);
+                if(player==1){
+                    moving.Move(finalSide,waypointIndex-1);
+                    player=-1;
+                } else{
+                    moving.Move(-1*finalSide,waypointIndex-1);
+                    player=1;
+                }
             }
         }
     }
@@ -42,7 +50,7 @@ public class Dice : MonoBehaviour {
     Moving moving;
     [SerializeField]
     GameObject piece;
-    int player = 1;
+    
 
     private void Awake(){
         moving = piece.GetComponent<Moving>();
@@ -72,7 +80,7 @@ public class Dice : MonoBehaviour {
         int randomDiceSide = 0;
 
         // Final side or value that dice reads in the end of coroutine
-        int finalSide = 0;
+        finalSide = 0;
 
         // Loop to switch dice sides ramdomly
         // before final side appears. 20 itterations here.
@@ -91,15 +99,16 @@ public class Dice : MonoBehaviour {
         // Assigning final side so you can use this value later in your game
         // for player movement for example
         finalSide = randomDiceSide + 1;
+        if(finalSide==4) finalSide=8;
 
         // Show final dice value in Console
         Debug.Log(finalSide);
-        if(player==1){
-            moving.Move(finalSide);
-            player=-1;
-        } else{
-            moving.Move(-1*finalSide);
-            player=1;
-        }
+        // if(player==1){
+        //     moving.Move(finalSide);
+        //     player=-1;
+        // } else{
+        //     moving.Move(-1*finalSide);
+        //     player=1;
+        // }
     }
 }

@@ -24,9 +24,11 @@ public class Moving : MonoBehaviour
         
         Debug.Log("Hello");
     }
-    public void Move(int steps){
+    public void Move(int steps, int waypointIndex){
+        if(index+steps!=waypointIndex) return;
         if(index+steps>26 || index+steps<1) index = 13;
         else index+=steps;
+        
         // Debug.Log("initial positon: "+transform.position);
         // Debug.Log("initial waypoint positon: "+waypoints[index].transform.position);
         transform.position = Vector2.MoveTowards(this.transform.position,
