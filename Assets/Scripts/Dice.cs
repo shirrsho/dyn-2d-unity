@@ -15,7 +15,7 @@ public class Dice : MonoBehaviour {
     string negative = "-ve turn";
 
     void Update()
-    {  
+    {
         if(movePermission){
 
         }
