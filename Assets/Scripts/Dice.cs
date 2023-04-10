@@ -84,6 +84,7 @@ public class Dice : MonoBehaviour {
 
     private void Awake(){
         moving = piece.GetComponent<Moving>();
+        moving.Start();
     }
 
 	// Use this for initialization

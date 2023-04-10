@@ -12,7 +12,23 @@ public class Moving : MonoBehaviour
     [SerializeField]
     Text show;
     [SerializeField]
+    Transform SHOW;
+    [SerializeField]
     Transform reset;
+    [SerializeField]
+    Transform winplus;
+    [SerializeField]
+    Transform winminus;
+    [SerializeField]
+    Transform winreset;
+    [SerializeField]
+    Transform skull;
+    [SerializeField]
+    Transform wrong;
+    [SerializeField]
+    Transform finalmoveplus;
+    [SerializeField]
+    Transform finalmoveminus;
     public Text win;
 
     int index = 13;
@@ -20,11 +36,18 @@ public class Moving : MonoBehaviour
     private float timeRemaining = 0f;
   
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         transform.position = waypoints[index].transform.position;
         show.gameObject.SetActive(false);
         win.gameObject.SetActive(false);
+        winplus.gameObject.SetActive(false);
+        winminus.gameObject.SetActive(false);
+        winreset.gameObject.SetActive(false);
+        skull.gameObject.SetActive(false);
+        wrong.gameObject.SetActive(false);
+        finalmoveplus.gameObject.SetActive(false);
+        finalmoveminus.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -37,19 +60,21 @@ public class Moving : MonoBehaviour
             // If the display time has elapsed, hide the canvas
             if (timeRemaining <= 0)
             {
-                show.gameObject.SetActive(false);
+                SHOW.gameObject.SetActive(false);
             }
         }
         transform.position = Vector2.MoveTowards(this.transform.position,
         waypoints[index].transform.position,
         speed*Time.deltaTime);
         if(transform.position==waypoints[0].transform.position){
-            win.gameObject.SetActive(true);
-            win.text += "Winner: - Player\nPush Reset";
+            winminus.gameObject.SetActive(true);
+            winreset.gameObject.SetActive(true);
+            // win.text += "Winner: - Player\nPush Reset";
         }
         if(transform.position==waypoints[26].transform.position){
-            win.gameObject.SetActive(true);
-            win.text = "Winner: + Player\nPush Reset";
+            winplus.gameObject.SetActive(true);
+            winreset.gameObject.SetActive(true);
+            // win.text = "Winner: + Player\nPush Reset";
         }
     }
     public void MoveTo(){
@@ -60,22 +85,33 @@ public class Moving : MonoBehaviour
         int newindex = index+steps;
         if(steps<0){
             if(waypointIndex==19||waypointIndex==21||waypointIndex==23){
-                show.gameObject.SetActive(true);
+                SHOW.gameObject.SetActive(true);
+                SHOW = skull;
                 timeRemaining = displayTime;
                 return;
             }
         }
         else {
             if(waypointIndex==3||waypointIndex==5||waypointIndex==7){
-                show.gameObject.SetActive(true);
+                SHOW.gameObject.SetActive(true);
+                SHOW = skull;
                 timeRemaining = displayTime;
                 return;
             }
         }
-        if(newindex>26) index = 26;
-        else if(newindex<0) index = 0;
+        if(newindex>26){
+            index = 26;
+            SHOW.gameObject.SetActive(true);
+            SHOW = finalmoveplus;
+        }
+        else if(newindex<0){
+            index = 0;
+            SHOW.gameObject.SetActive(true);
+            SHOW = finalmoveminus;
+        }
         else if(newindex!=waypointIndex){
-            show.gameObject.SetActive(true);
+            SHOW.gameObject.SetActive(true);
+            SHOW = wrong;
             timeRemaining = displayTime;
             return;
         }
