@@ -85,33 +85,33 @@ public class Moving : MonoBehaviour
         int newindex = index+steps;
         if(steps<0){
             if(waypointIndex==19||waypointIndex==21||waypointIndex==23){
-                SHOW.gameObject.SetActive(true);
                 SHOW = skull;
+                SHOW.gameObject.SetActive(true);
                 timeRemaining = displayTime;
                 return;
             }
         }
         else {
             if(waypointIndex==3||waypointIndex==5||waypointIndex==7){
-                SHOW.gameObject.SetActive(true);
                 SHOW = skull;
+                SHOW.gameObject.SetActive(true);
                 timeRemaining = displayTime;
                 return;
             }
         }
         if(newindex>26){
             index = 26;
-            SHOW.gameObject.SetActive(true);
             SHOW = finalmoveplus;
+            SHOW.gameObject.SetActive(true);
         }
         else if(newindex<0){
             index = 0;
-            SHOW.gameObject.SetActive(true);
             SHOW = finalmoveminus;
+            SHOW.gameObject.SetActive(true);
         }
         else if(newindex!=waypointIndex){
-            SHOW.gameObject.SetActive(true);
             SHOW = wrong;
+            SHOW.gameObject.SetActive(true);
             timeRemaining = displayTime;
             return;
         }
